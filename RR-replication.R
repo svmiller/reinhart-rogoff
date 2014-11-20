@@ -72,3 +72,7 @@ RR.selective.spreadsheet.transcription["New Zealand",4] <- -7.9
 
 (RR.published.mean <- apply(RR.selective.spreadsheet.transcription,2,mean,na.rm=TRUE))
 RR.published.mean.df <- data.frame(RR.published.mean , dgcat=names(RR.published.mean) )
+
+(2.9*.143) + (2.4 *.143) + (1*.143) + (.7*.143) + (-7.9*.143) + (2.4*.143) + (-2*.143)
+
+(3.8*.045)+(2.6*.227) + (3*.045) + (2.9*.173) + (2.4*.064) + (1*.091) + (.7*.10) + (2.6*.045) + (2.4*.173) + (-2*.036)
