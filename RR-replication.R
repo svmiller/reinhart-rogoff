@@ -39,7 +39,6 @@ Data$dg90plus[Data$debtgdp >= 90] <- 1
 Data$dgcat <- as.factor(Data$dgcat)
 summary(Z1 <- zelig(dRGDP ~ dgcat, data = Data, model="ls"))
 
-Z1.low <- setx(Z1, dg3060 = 0, dg6090 = 0, dg90plus = 1)
 Z1.low <- setx(Z1, dgcat  = "90% and above")
 Z1.sim <-sim(Z1, x = Z1.low)
 summary(Z1.sim)
