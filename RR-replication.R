@@ -1,6 +1,8 @@
 library(RCurl)
 library(Zelig)
 library(countrycode)
+library(ggplot2)
+library(mgcv)
 
 data <- getURL("https://raw.githubusercontent.com/svmiller/reinhart-rogoff/master/RR-processed.csv")
 Data <- read.csv(text = data)
@@ -76,3 +78,13 @@ RR.published.mean.df <- data.frame(RR.published.mean , dgcat=names(RR.published.
 (2.9*.143) + (2.4 *.143) + (1*.143) + (.7*.143) + (-7.9*.143) + (2.4*.143) + (-2*.143)
 
 (3.8*.045)+(2.6*.227) + (3*.045) + (2.9*.173) + (2.4*.064) + (1*.091) + (.7*.10) + (2.6*.045) + (2.4*.173) + (-2*.036)
+
+RR.gam <- gam(dRGDP ~ s(debtgdp, bs="cs"),data=Data)
+
+## Cross-validation technique for loess parameters
+## http://stats.stackexchange.com/questions/2002/how-do-i-decide-what-span-to-use-in-loess-regression-in-r
+Graph <- ggplot(Data, aes(x=debtgdp,y=dRGDP))
+Graph <- Graph + geom_vline(xintercept=90,color='lightgray',size=1.5)
+Graph <- Graph + geom_point(color='darkgray') + ylab("Real GDP Growth") + xlab("Public Debt/GDP Ratio") + scale_x_continuous(breaks=seq(0,240,30)) + theme_bw()
+Graph <- Graph + geom_smooth(method=gam, color='black',formula= y ~ s(x, bs = "cs"))
+print(Graph)
