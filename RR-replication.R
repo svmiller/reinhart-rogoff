@@ -10,17 +10,6 @@ summary(Data)
 Data <- subset(Data, select=c("Country","Year","dRGDP","debtgdp"))
 Data$ccode <- countrycode(Data$Country, "country.name", "cown")
 
-CPDS <- read.csv("~/Dropbox/data/CPDS/CPDSI1960-2012csv.csv", sep=";")
-CPDS$ccode <- countrycode(CPDS$Country,"country.name","cown")
-
-CPDS$govleft <- as.numeric(CPDS$Gov_Left1)
-CPDS$govcent <- as.numeric(CPDS$Gov_Cent1)
-CPDS$govright <- as.numeric(CPDS$Gov_Right1)
-
-CPDS.sub <- subset(CPDS, select=c("Year","ccode","govleft","govcent","govright"))
-
-Data <- merge(Data, CPDS.sub, by=c("ccode","Year"), all.x = TRUE)
-
 Data$dgcat <- NA
 Data$dgcat[Data$debtgdp > 0 & Data$debtgdp < 30] <- "0-30%"
 Data$dgcat[Data$debtgdp >= 30 & Data$debtgdp < 60] <- "30-60%"
