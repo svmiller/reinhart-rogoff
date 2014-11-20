@@ -44,18 +44,22 @@ RR.correct.mean.df <- data.frame(RR.correct.mean, dgcat=names(RR.correct.mean) )
 (RR.equalwt.mean <- with(Data, tapply( dRGDP, list(Country,dgcat), mean, na.rm=TRUE )))
 
 ## Recall that RR chose to omit Aussieland, New Zealand, and Canada for the first few years after WWII.
-## These observations are inconsistent with their findings. They chose to omit it (despite including the US in these years).
-
+## These are inconsistent with their findings (but they chose to include the US in those years).
+#######################################################################################################
 
 RR.selective <- subset(Data,
                        !((Year<1950 & Country=="New Zealand") | (Year<1951 & Country=="Australia") | (Year<1951 & Country=="Canada") ))
 (RR.selective.mean <- with(RR.selective, tapply( dRGDP, list(Country,dgcat), mean, na.rm=TRUE )))
 
-with(RR.selective, tapply( dRGDP, dgcat, mean, na.rm=TRUE ))
+# with(RR.selective, tapply( dRGDP, dgcat, mean, na.rm=TRUE ))
 
+# Compare/contrast RR.selective.mean with RR.equalwt.mean. Look especially at New Zealand.
+
+## Recall that RR also had a silly spreadsheet error that came from doing their work in Excel.
+## This error is considered random, unless one assumes alphabetical order matters for the findings.
 
 RR.selective.spreadsheet <- subset(RR.selective, ! Country %in% c("Australia","Austria","Belgium","Canada","Denmark") )
-RR.selective.spreadsheet.transcription <- with(RR.selective.spreadsheet, tapply( dRGDP, list(Country,dgcat), mean, na.rm=TRUE ))
+(RR.selective.spreadsheet.transcription <- with(RR.selective.spreadsheet, tapply( dRGDP, list(Country,dgcat), mean, na.rm=TRUE )))
 
 RR.selective.spreadsheet.transcription["New Zealand",4] <- -7.9
 
