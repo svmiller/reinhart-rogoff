@@ -27,15 +27,6 @@ Data$dgcat2[Data$debtgdp >= 120] <- "Above 120%"
 
 summary(M2 <- lm(dRGDP ~ factor(dgcat2), data=Data))
 
-Data$dg0030 <- 0
-Data$dg0030[Data$debtgdp > 0 & Data$debtgdp < 30] <- 1
-Data$dg3060 <- 0
-Data$dg3060[Data$debtgdp >= 30 & Data$debtgdp < 60] <- 1
-Data$dg6090 <- 0
-Data$dg6090[Data$debtgdp >= 60 & Data$debtgdp < 90] <- 1
-Data$dg90plus <- 0
-Data$dg90plus[Data$debtgdp >= 90] <- 1
-
 Data$dgcat <- as.factor(Data$dgcat)
 summary(Z1 <- zelig(dRGDP ~ dgcat, data = Data, model="ls"))
 
