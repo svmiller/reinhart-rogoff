@@ -61,7 +61,14 @@ RR.selective <- subset(Data,
 RR.selective.spreadsheet <- subset(RR.selective, ! Country %in% c("Australia","Austria","Belgium","Canada","Denmark") )
 (RR.selective.spreadsheet.transcription <- with(RR.selective.spreadsheet, tapply( dRGDP, list(Country,dgcat), mean, na.rm=TRUE )))
 
+## Compare RR.selective.spreadsheet.mean with RR.selective.mean.
+## Look at what happened to Belgium in that right column.
+
+## One final spreadsheet error coming up.
+
 RR.selective.spreadsheet.transcription["New Zealand",4] <- -7.9
+
+## And we think we've replicated RR (2010).
 
 (RR.published.mean <- apply(RR.selective.spreadsheet.transcription,2,mean,na.rm=TRUE))
 RR.published.mean.df <- data.frame(RR.published.mean , dgcat=names(RR.published.mean) )
